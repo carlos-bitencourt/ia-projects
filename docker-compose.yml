@@ -1,7 +1,0 @@
-services:
-  dev:
-      image: smizy/scikit-learn:0.22.2.post1-alpine
-      volumes:
-          - .:/app
-      ports:
-          - 8888:8888
