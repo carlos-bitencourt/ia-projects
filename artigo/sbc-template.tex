@@ -32,14 +32,13 @@
 
 \end{resumo}
 
-
 \section{Introdução}
 
-No momento atual, é notório a necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros. Para alcançar este objetivo, a melhoria do Processo de Desenvolvimento de Software (PDS) é essencial para a entrega de produtos e serviços com qualidade. Uma das atividades mais importantes do PDS é a \textbf{estimativa de esforço de software}. A estimativa de software, pode ser aprimorada com o tempo conforme experiência da equipe. Uma vez que a estimativa pode ser aferida por meio de dados históricos, seria possível a implementação de uma solução de \textbf{Aprendizado de Máquina (AP)} para a realização de análise das métricas de um projeto de software? Assim sendo, poder-se-ia aproveitar a base de conhecimento de outras equipes para a predição de estimativas? Reduzindo assim análises equivocadas e tornando cada vez mais preciso as estimativas dos cronogramas dos projetos.
+No momento atual, é notório a necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros. Para alcançar este objetivo, a Engenharia de Software é essencial para a entrega de produtos e serviços com qualidade. Uma das atividades mais importantes é a \textbf{Estimativa de Esforço de Software - EES}. A EES, pode ser aprimorada com o tempo conforme experiência da equipe. Uma vez que a estimativa pode ser aferida por meio de dados históricos, seria possível a implementação de uma solução de \textbf{Aprendizado de Máquina (AP)} para a realização de análise das métricas de um projeto de software? Assim sendo, poder-se-ia aproveitar a base de conhecimento de outras equipes para a predição de estimativas? Reduzindo assim análises equivocadas e tornando cada vez mais preciso as estimativas dos cronogramas dos projetos.
 
-Embora muitas pesquisas tenham sido feitas na área de estimativas de esforço de softwares nos últimos anos, a precisão das estimativas de esforço de software ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
+Embora muitas pesquisas tenham sido feitas em EES nos últimos anos, a precisão das estimativas  ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
 
-Assim sendo, o objetivo desse trabalho é realizar uma exploração preliminar da aplicação de ao menos cinco algoritmos de Aprendizagem de Máquina sobre algumas bases de dados públicas contendo informações de estimativa de esforço de sotware.
+Assim sendo, o objetivo desse trabalho é realizar uma exploração preliminar da aplicação de ao menos cinco algoritmos de Aprendizagem de Máquina sobre algumas bases de dados públicas contendo informações de EES.
 
 \section{Referencial Teórico} \label{sec:refteorico}
 
@@ -56,16 +55,14 @@ Conceitualmente pode-se delinear a AP com o postulado de Mitchell (1997):
   Um programa de computador é dito aprender a partir de uma experiência E com respeito a uma classe de tarefas T e medida de desempenho P, se seu desempenho em tarefas de T, medido por P, melhora a experiência E. \cite[p. 2, tradução nossa]{mitchell:1997}
 \end{quote}
 
-Deste modo, por meio de modelos que representam hipóteses, é possível medir o conhecimento aprendido por um processo de indução, que pode ser visto como um processo de busca em que se almeja encontrar a melhor hipótese.
-
-Existem alguns tipos de apreendizagem nomeados de acordo com o \textit{feedback}. Na \textbf{aprendizagem não supervisionada} o agente aprende padrões na entrada embora não existam nenhum \textit{feedback} explícito. Não possui informações externas e as atividades mais relevantes são de \textbf{agrupamento} e criação de regras de associação. Na \textbf{aprendizagem por reforço} o agente aprende por meio de ``recompensas'' para os acertos e ``punições'' para os erros. Na \textbf{aprendizagem supervisionada} o agente analisa alguns exemplos de pares de entrada e saída e aprende uma função que faz o mapeamento da entrada para saída. E, por fim o \textbf{aprendizado semisupervisionado} onde são dados alguns poucos exemplos rotulados que são usados para treinar o modelo que deve analisar uma grande coleção de dados não rotulados \cite{stuartnorvig:2013}.
+Deste modo, por meio de modelos que representam hipóteses, é possível medir o conhecimento aprendido por um processo de indução, que pode ser visto como um processo de busca em que se almeja encontrar a melhor hipótese \cite{stuartnorvig:2013}.
 
 Nas subseções a seguir serão apresentados alguns técnicas, conceitos e algoritmos de aprendizagem de máquina que serão utilizados nesta pesquisa.
 
 \subsubsection{Árvores de Decisão}
 
 Uma árvores de decisão toma como entrada um vetor de atributos e retorna uma decisão única. Os valores de entrada e saída podem ser discretos ou contínuos.
-Cada nó interno da árvore corresponde a um teste do valor de um dos atributos de entrada $A_i$, e as ramificações dos nós são classificadas com os valores possíveis do atributo $A_i=Valor_{ik}$.
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=.5\textwidth]{img/fig_arvore_decisao.png}
@@ -155,17 +152,22 @@ Como pode-se observar na Figura \ref{fig_random_forest}, cada árvore recebe um 
 onde $H(x)$ é uma combinação do modelo de classificação, $h_i$ é a decisão de uma das árvores, $Y$ é a variável de saída. Cada árvore tem direito a um voto para selecionar o melhor resultado de classificação \cite{liuetal:2012}.
 
 
-\subsection{Estimativa de Esforço de Software e AP}
+\subsection{Estimativa de Esforço de Software e Aprendizagem de Máquina}
 
 Muitas pesquisas tem sido feitas na área de estimativas de esforço de softwares nos últimos anos. No entanto, a precisão das estimativas de esforço de software ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
 
+Nas ultimas três décadas os estudos que aplicam o AP na estimativa de software foi ampliado motivado pela ampla margem de erro nos métodos tradicionais de estimativa e pela melhoria contínua dos algoritmos de aprendizado de máquina \cite{banimustafa:2018}.
 
+Vários algoritmos foram utilizados para estimar esforço, custo e tempo de desenvolvimento de software. A maioria dessas técnicas foram aplicadas a dados públicos. Árvore de Decisão, Florestas de Árvores de Decisão em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007, bhatiaattri:2015} dentre muitos outros trabalhos.
+ 
+Ali e Gravino (2019) por meio de uma revisão sistemática da literatura sobre estimativa de eforço de software baseado em aprendizam de máquina, resgataram a análise sistemática de \cite{wen:2012} e complementaram com os próximos anos. Nesta análise, eles reponderam questões como quais as bases de dados mais utilizadas nas pesquisas? Quais os algoritmos quais obtiveram o maior desempenho? Quais as métricas mais utilizadas? Dentre os estudos avaliados, as três técnicas mais utilizadas foram respectivamente Redes Neurais Artificiais, Máquinas de Vetores de Suporte e Redes Bayseanas. A técnica K-Vizinhos Mais Próximos em quinto, Árvores de Decisão em sexto e por fim, Floresta Aletória em oitava posição. Dentre as bases de dados mais usadas nos estudos, as três primeiras foram a NASA, COCOMO e ISBSG respectivamente. 
 
+Em relação as métricas, Magnitude Média do Erro Relativo (Mean Magnitude of Relative Error - MMRE) e Porcentagem de Previsões de 25 por cento (Percentage of Predictions - Pred(25)) foram amplamente usadas sendo que o Erro Absoluto Médio (Mean Absolute Error - MAE) ficou em quarto mais utilizado.
 
 
 \section{Metodologia}
 
-In some conferences...
+
 
 \subsection{Comparando aprendizado dos Algoritmos}
 

@@ -1,1 +1,10 @@
 .ipynb_*
+*.out
+*.aux
+*.log
+*.bbl
+*.blg
+*.fls
+*.fdb_*
+*.synctex*
+
