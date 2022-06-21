@@ -35,7 +35,7 @@
 
 \section{Introdução}
 
-No momento atual, é notório a necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros. Para alcançar este objetivo, a Engenharia de Software é essencial para a entrega de produtos e serviços com qualidade. Uma das atividades mais importantes é a \textbf{Estimativa de Esforço de Software - EES}. A EES, pode ser aprimorada com o tempo conforme experiência da equipe. Uma vez que a estimativa pode ser aferida por meio de dados históricos, seria possível a implementação de uma solução de \textbf{Aprendizado de Máquina (AP)} para a realização de análise das métricas de um projeto de software? Assim sendo, poder-se-ia aproveitar a base de conhecimento de outras equipes para a predição de estimativas? Reduzindo assim análises equivocadas e tornando cada vez mais preciso as estimativas dos cronogramas dos projetos.
+No momento atual, é notório a necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros. Para alcançar este objetivo, a Engenharia de Software é essencial para a entrega de produtos e serviços com qualidade. Uma das atividades mais importantes é a \textbf{Estimativa de Esforço de Software - EES}. A EES, pode ser aprimorada com o tempo conforme experiência da equipe. Uma vez que a estimativa pode ser aferida por meio de dados históricos, seria possível a implementação de uma solução de \textbf{Aprendizado de Máquina (AM)} para a realização de análise das métricas de um projeto de software? Assim sendo, poder-se-ia aproveitar a base de conhecimento de outras equipes para a predição de estimativas? Reduzindo assim análises equivocadas e tornando cada vez mais preciso as estimativas dos cronogramas dos projetos.
 
 Embora muitas pesquisas tenham sido feitas em EES nos últimos anos, a precisão das estimativas  ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
 
@@ -45,13 +45,13 @@ Assim sendo, o objetivo desse trabalho é realizar uma exploração preliminar d
 
 Na fundamentação teórica, para que se possa embasar uma análise adequada, faz-se necessário enumerar e descrever os modelos e técnicas de aprendizado de máquina as serem utilizados nesta pesquisa, bem como uma breve análise das pesquisas sobre estimativa de esforço de software com Aprendizado de Máquina.
 
-\subsection{Aprendizado de Máquina (AP)}
+\subsection{Aprendizado de Máquina (AM)}
 
 Um dos primeiros exemplos de um sistema de aprendizagem de máquina, foi um programa desenvolvido por Samuel (1959) para jogar damas. Com este programa, foi possível demonstrar como um programa poderia melhorar o seu processamento de dados, sem ser programado. Ou seja, um programa poderia ser treinado para fazer previsões \cite{ieee:2013,samuel:1959}.
 
-Ao longo dos anos, por meio do desenvolvimento de técnicas, métodos e novos algoritmos para o campo da AP foi possível desenvolver uma série de serviços \cite{abadaletal:2020}.
+Ao longo dos anos, por meio do desenvolvimento de técnicas, métodos e novos algoritmos para o campo da AM foi possível desenvolver uma série de serviços \cite{abadaletal:2020}.
 
-Conceitualmente pode-se delinear a AP com o postulado de Mitchell (1997):
+Conceitualmente pode-se delinear a AM com o postulado de Mitchell (1997):
 \begin{quote}
   Um programa de computador é dito aprender a partir de uma experiência E com respeito a uma classe de tarefas T e medida de desempenho P, se seu desempenho em tarefas de T, medido por P, melhora a experiência E. \cite[p. 2, tradução nossa]{mitchell:1997}
 \end{quote}
@@ -105,7 +105,7 @@ de modo que $x_1, x_2, \ldots, x_n$ são os sinais de entrada; $w_{k1}, w_{k2}, 
 
 \subsubsection{K-Vizinhos Mais Próximos (\textbf{K-Nearest Neighbors - KNN})}
 
-Algoritmos baseados em instâncias baseiam o seu aprendizado no armazenamento dos dados de treinamento para utilização na classificação de uma entrada nova. Um dos algoritmos mais utilizados nesta aboradagem é o \textbf{KNN}.
+Algoritmos baseados em instâncias baseiam o seu aprendizado no armazenamento dos dados de treinamento para utilização na classificação de uma entrada nova. Um dos algoritmos mais utilizados nesta abordagem é o \textbf{KNN}.
 
 Os vizinhos mais próximos podem ser calculados pela \textbf{distância euclidiana}. Dado uma instância $x$ descrita pelo vetor $[a_1(x), a_2(x), \ldots a_n(x)]$, onde $a_k$ é o $k$-ésimo atributo da instância x, então a distância de $x_i$ e $x_j$ é definida:
 \begin{equation}
@@ -119,7 +119,7 @@ A \textbf{Máquina de Vetor de Suporte (SVM)} contém três propriedades relevan
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.5\textwidth]{img/fig_svm.png}
+  \includegraphics[width=.6\textwidth]{img/fig_svm.png}
   \caption{Máquina de Vetor de Suporte. (a) Duas classes vários separadores lineares candidatos. (b) O separador de margem máxima ao centro. Adaptado de \cite{bruno:2020}}
   \label{fig_svm}
 \end{figure}
@@ -150,7 +150,7 @@ onde $H(x)$ é uma combinação do modelo de classificação, $h_i$ é a decisã
 
 Muitas pesquisas tem sido feitas na área de estimativas de esforço de softwares nos últimos anos. No entanto, a precisão das estimativas de esforço de software ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
 
-Nas ultimas três décadas os estudos que aplicam o AP na estimativa de software foi ampliado motivado pela ampla margem de erro nos métodos tradicionais de estimativa e pela melhoria contínua dos algoritmos de aprendizado de máquina \cite{banimustafa:2018}.
+Nas ultimas três décadas os estudos que aplicam o AM na estimativa de software foi ampliado motivado pela ampla margem de erro nos métodos tradicionais de estimativa e pela melhoria contínua dos algoritmos de aprendizado de máquina \cite{banimustafa:2018}.
 
 Vários algoritmos foram utilizados para estimar esforço, custo e tempo de desenvolvimento de software. A maioria dessas técnicas foram aplicadas a dados públicos. Árvore de Decisão, Florestas de Árvores de Decisão em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007, bhatiaattri:2015} dentre muitos outros trabalhos.
 
