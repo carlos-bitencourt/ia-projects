@@ -8,8 +8,8 @@
 %\usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 
-
 \sloppy
+
 
 \title{Estimativa de Esforço em Projetos de Software com Técnicas\\ de Aprendizado de Máquina}
 
@@ -42,7 +42,7 @@ Assim sendo, o objetivo desse trabalho é realizar uma exploração preliminar d
 
 \section{Referencial Teórico} \label{sec:refteorico}
 
-Na fundamentação teórica, para que se possa embasar uma análise adequada, faz-se necessário enumerar e descrever os modelos e técnicas de aprendizado de máquina as serem utilizados nesta pesquisa, bem como uma breve análise do estado da arte das pesquisas sobre estimativa de esforço de software com Aprendizado de Máquina.
+Na fundamentação teórica, para que se possa embasar uma análise adequada, faz-se necessário enumerar e descrever os modelos e técnicas de aprendizado de máquina as serem utilizados nesta pesquisa, bem como uma breve análise das pesquisas sobre estimativa de esforço de software com Aprendizado de Máquina.
 
 \subsection{Aprendizado de Máquina (AP)}
 
@@ -59,37 +59,32 @@ Deste modo, por meio de modelos que representam hipóteses, é possível medir o
 
 Nas subseções a seguir serão apresentados alguns técnicas, conceitos e algoritmos de aprendizagem de máquina que serão utilizados nesta pesquisa.
 
-\subsubsection{Árvores de Decisão}
+\subsubsection{Árvores de Decisão (Decision Tree - DT)}
 
 Uma árvores de decisão toma como entrada um vetor de atributos e retorna uma decisão única. Os valores de entrada e saída podem ser discretos ou contínuos.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.5\textwidth]{img/fig_arvore_decisao.png}
+  \includegraphics[width=.4\textwidth]{img/fig_arvore_decisao.png}
   \caption{Árvore de Decisão para jogar tênis. Adaptado de Mitchell (1997).}
   \label{fig_arvore_decisao}
 \end{figure}
 
 Na Figura~\ref{fig_arvore_decisao}, pode-se observar um exemplo de árvore de decisão, que representa de forma natural ao ser humano os passos para decidir se deve ou não jogar tênis. Cada nó folha da árvore especifica o valor a ser retornado pela função.
-O Algoritmo de Árvore de Decisão adota uma estratégia ``gulosa'' de dividir para conquista. Sempre testar o atributo mais relevante primeiro pode diminuir aumentar as chances de alcançar a classificação correta com um número reduzido de testes.
 
-Uma forma de medir a importância (ganho de informação) de uma atributo, é por meio do conceito de \textbf{Entropia}, que é a medida de incerteza de uma variável aleatória. Dado um problema de classificação booleana, a entropia relativa de um subconjunto $V$, com $k$ diferentes valores $v_k$, cada uma com probabilidade $P(v_k)$, é definida como:
-\begin{equation}
-  Entropia(V) = -\sum_{k} P(v_k)\log_2 P(v_k)
-\end{equation}
-Quanto mais informações são necessárias para aprender, maior é a entropia, por outro lado, se não é necessário nenhuma informação a entropia é igual a zero. Dado que a entropia mensura o quão impuro os dados de um coleção estão, pode-se definir o ganho de informação de um atributo A em relação a uma coleção $V$ como:
+Uma forma de medir a importância (ganho de informação) de uma atributo, é por meio do conceito de \textbf{Entropia}, que é a medida de incerteza de uma variável aleatória. Quanto mais informações são necessárias para aprender, maior é a entropia, por outro lado, se não é necessário nenhuma informação a entropia é igual a zero. Dado que a entropia mensura o quão impuro os dados de um coleção estão, pode-se definir o ganho de informação de um atributo A em relação a uma coleção $V$ como:
 \begin{equation}
   Ganho(V, A) = Entropia(V) - \sum_{v\in A_k}\frac{|V_v|}{|V|} Entropia(V_v)
 \end{equation}
-Assim sendo, é possível calcular o Ganho de informação para realização do treinamento. Outra questão relevante, é que nem sempre os dados são discretos, existem também dados contínuos, como por exemplo previsão de preços. Nestes casos o algoritmo de árvore de decisão deve encontrar pontos de divisão entre os valores \cite{mitchell:1997,stuartnorvig:2013}.
+Assim sendo, é possível calcular o Ganho de informação para realização do treinamento. Para dados contínuos, como por exemplo previsão de preços, o algoritmo de árvore de decisão deve encontrar pontos de divisão entre os valores \cite{mitchell:1997,stuartnorvig:2013}.
 
 \subsubsection{Redes Neurais Artificiais (RNA)}
 
-Inspirado no funcionamento do cérebro humano, as Redes Neurais Artificiais é representada por uma coleção de classificadores lineares conectados cujas propriedades são determinadas pela topologia e pelas propriedades dos ``neurônios'' (Figura~\ref{fig_neuronio}).
+Inspirado no funcionamento do cérebro humano, as Redes Neurais Artificiais são representadas por uma coleção de classificadores lineares conectados cujas propriedades são determinadas pela topologia e pelas propriedades dos ``neurônios'' (Figura~\ref{fig_neuronio}).
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.6\textwidth]{img/fig_neuronio.png}
+  \includegraphics[width=.4\textwidth]{img/fig_neuronio.png}
   \caption{Modelo de Neurônio. Fonte: \cite{haykin:2001}}
   \label{fig_neuronio}
 \end{figure}
@@ -107,9 +102,9 @@ de modo que $x_1, x_2, \ldots, x_n$ são os sinais de entrada; $w_{k1}, w_{k2}, 
 
 É possível organizar a topologia de uma rede neural em diversas camadas, com diferentes número de unidades por camada, aumentando a capacidade da rede de aprender \cite{haykin:2001}.
 
-\subsubsection{K-Vizinhos Mais Próximos (\textbf{K-Nearest Neighbors})}
+\subsubsection{K-Vizinhos Mais Próximos (\textbf{K-Nearest Neighbors - KNN})}
 
-Algoritmos baseados em instâncias baseiam o seu aprendizado no armazenamento dos dados de treinamento para utilização na classificação de uma entrada nova. Um dos algoritmos mais utilizados nesta aboradagem é o \textbf{K-Vizinhos Mais Próximos (KNN)}.
+Algoritmos baseados em instâncias baseiam o seu aprendizado no armazenamento dos dados de treinamento para utilização na classificação de uma entrada nova. Um dos algoritmos mais utilizados nesta aboradagem é o \textbf{KNN}.
 
 Os vizinhos mais próximos podem ser calculados pela \textbf{distância euclidiana}. Dado uma instância $x$ descrita pelo vetor $[a_1(x), a_2(x), \ldots a_n(x)]$, onde $a_k$ é o $k$-ésimo atributo da instância x, então a distância de $x_i$ e $x_j$ é definida:
 \begin{equation}
@@ -118,27 +113,25 @@ Os vizinhos mais próximos podem ser calculados pela \textbf{distância euclidia
 
 Para classificar, primeiro encontre os $k$ vizinhos mais próximos e realize um processo de contagem. A classe majoritária será atribuída ao novo objeto. Para evitar empates, recomenda-se sempre escolher um número ímpar para $k$. Para classes contínuas, pode-se tirar a média ou mediana de $k$ vizinhos \cite{mitchell:1997,stuartnorvig:2013}.
 
-\subsubsection{Máquinas de Vetor de Suporte (Support Vector Machine)}
-A \textbf{Máquina de Vetor de Suporte (SVM)} é uma abordagem popular da aprendizagem supervisionada.
-
-O SVM contém três propriedades relevantes. A primeira, diz respeito a capacidade de construir um \textbf{separador de margem máxima} que contribui na generalização. A segunda, é a capacidade de, além de tratar dados lineares, incorporar os dados em um espaço de dimensão superior. Terceiro, apesar de ser um método não paramétrico, na prática, acabam mantendo apenas uma fração do número de exemplos. A idéia é considerar alguns exemplos mais importantes que os outros o que pode levar a uma generalização melhor.
+\subsubsection{Máquinas de Vetor de Suporte (Support Vector Machine - SVM)}
+A \textbf{Máquina de Vetor de Suporte (SVM)} contém três propriedades relevantes. A primeira, diz respeito a capacidade de construir um \textbf{separador de margem máxima} que contribui na generalização. A segunda, é a capacidade de, além de tratar dados lineares, incorporar os dados em um espaço de dimensão superior. Terceiro, apesar de ser um método não paramétrico, na prática, acabam mantendo apenas uma fração do número de exemplos. A idéia é considerar alguns exemplos mais importantes que os outros o que pode levar a uma generalização melhor.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.7\textwidth]{img/fig_svm.png}
+  \includegraphics[width=.5\textwidth]{img/fig_svm.png}
   \caption{Máquina de Vetor de Suporte. (a) Duas classes vários separadores lineares candidatos. (b) O separador de margem máxima ao centro. Adaptado de \cite{bruno:2020}}
   \label{fig_svm}
 \end{figure}
 
 Na Figura~\ref{fig_svm}, pode-se observar em (a) várias possibilidades de separação, enquanto em (b) busca-se o separador médio mais distantes das classes, chama-se o separador de \textbf{margem máxima}, dessa forma pode-se minimizar a perda de generalização \cite{stuartnorvig:2013}.
 
-\subsubsection{Floresta Aleatória (Random Florest)}
+\subsubsection{Floresta Aleatória (Random Florest - RF)}
 
 O Algoritmo de Floresta Aleatória consiste em um classificador cuja topologia é uma coleção de classificadores estruturados em árvores.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.6\textwidth]{img/fig_random_forest.png}
+  \includegraphics[width=.4\textwidth]{img/fig_random_forest.png}
   \caption{Modelo de Floresta Aleatória. Adaptado de \cite{liuetal:2012}}
   \label{fig_random_forest}
 \end{figure}
@@ -167,6 +160,9 @@ Em relação as métricas, Magnitude Média do Erro Relativo (Mean Magnitude of 
 
 \section{Metodologia}
 
+Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente relativas a Estimativas de Esforço de Software: 
+
+Foram selecionados cinco Algoritmos para análise de performance: Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).  \cite{scikitlearn:2011}
 
 
 \subsection{Comparando aprendizado dos Algoritmos}
