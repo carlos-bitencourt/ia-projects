@@ -8,6 +8,7 @@
 
 %\usepackage[latin1]{inputenc}
 \usepackage{hyperref}
+\usepackage{outlines}
 
 \sloppy
 
@@ -160,43 +161,113 @@ Em relação as métricas, Magnitude Média do Erro Relativo (Mean Magnitude of 
 
 \section{Metodologia}
 
-Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente  relativas a Estimativas de Esforço de Software: Cocomo81 (D1), Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5)\cite{promise:2005, nasanumeric:2014, seera:2020}.
+Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente, todas  relacionadas a Estimativas de Esforço de Software (Tabela \ref{tab_bases}): Cocomo81 (D1), Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}.
 
-Foram selecionados cinco Algoritmos para análise de performance: Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
+\begin{table}[h!]
+  \begin{center}
+    \caption{Base de Dados}
+    \label{tab_bases}
+    \begin{tabular}{r|c|c|c|c}
+      \textbf{ID}      & \textbf{Nº Atr.} & \textbf{Nº Atr.} & \textbf{Nº Linhas} & \textbf{Nº Linhas} \\
+      \textbf{}        & \textbf{Inicial} & \textbf{Final}   & \textbf{ Inicial}  & \textbf{Final}     \\
+      \hline
+      Cocomo81 (D1)    & 17               & 17               & 63                 & 63                 \\
+      Cocomonasa (D2)  & 17               & 17               & 60                 & 60                 \\
+      Desharnais (D3)  & 12               & 17               & 81                 & 60                 \\
+      Nasanumeric (D4) & 24               & 41               & 93                 & 93                 \\
+      Seera (D5)       & 76               & 33               & 120                & 111                \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+As bases de dados D1, D2, D3 e D4 possuem atributos semelhantes relacionados a técnica de Estimativa de Software COCOMO \cite{boehm:1981}. Este modelo, estima o esforço de desenvolvimento de software em relação a homem-mês considerando o tamanho do código (LOC) ou Pontos por função \cite{banimustafa:2018}. A fórmula geral:
+
+\begin{equation}
+  Effort = A S^b
+\end{equation}
+
+Sendo $A$ um parâmetro de produtividade, $b$ um parâmetro escalável de economia e $S$ linhas por código (LOC) ou Pontos por função \cite{shepperd:1997}.
+
+Deste modo, ``Effort'' representa o atributo Classe das Bases de Dados. A base de dados D5, possui dados mais recentes e completos contendo 76 atributos inicialmente, muito mais que as demais bases, 24 (D4), 12 (D3) e 17 (D1, D2) (Tabela \ref{tab_bases}).
+
+Para tratamento dos dados, optou-se por excluir linhas cujos os dados fossem nulos ou vazios. Deste modo, após a identificação e exclusão destas linhas, não houve alteração nas bases D1, D2 e D3, foram removidas 19 linhas da base D4 e 11 linhas da base D5. Em relação aos atributos, foi necessário o ajuste de atributos textuais em numéricos nas bases D2 e D4, ajustes em atributos categóricos nas bases D3 (``language''), D4 (``cat2'') e D5 (``Programming language used''), resultando na alteração do número dos atributos finais como pode ser observado na Tabela \ref{tab_bases}. Além disso, foram removidos alguns atributos descritivos como ano de projeto e identificadores. Para a base D5, foram removidos vários atributos cujo valor compunha outro atributo presente, ou seja, dados derivados, mantendo-se atributos considerados relavantes e semelhantes as demais bases.
+
+Após, as bases de dados foram submetidas a transformação na mesma ordem de grandeza por meio do método \textit{z-score}.
+
+\subsection{Ajustes e Treinamento dos Classificadores / Regressores}
+
+Foram selecionados cinco Algoritmos para análise de performance (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
 
 Para implementação e execução da análise foi utilizado a biblioteca \textit{Scikit-learn} \cite{scikitlearn:2011} com a linguagem de programação \textit{Python}.
 
 \begin{table}[h!]
   \begin{center}
-    \caption{Algoritmos, bases, parâmetros e componentes}
+    \caption{Algoritmos e componentes \textit{Scikit-learn}}
     \label{tab_algoritmos}
-    \begin{tabular}{l|l|l}
-      \textbf{Algoritmos} & \textbf{Parâmetros} & \textbf{Componentes}  \\
-      DT                  & a, b, c             & DecisionTreeRegressor \\
-      MLP                 & a, b, c             & MLPRegressor          \\
-      KNN                 & a, b, c             & KNeighborsRegressor   \\
-      SVM                 & a, b, c             & SVM                   \\
-      RF                  & a, b, c             & RandomForestRegressor \\
+    \begin{tabular}{l|l}
+      \textbf{Algoritmos} & \textbf{Componentes}  \\
+      \hline
+      DT                  & DecisionTreeRegressor \\
+      MLP                 & MLPRegressor          \\
+      KNN                 & KNeighborsRegressor   \\
+      SVM                 & SVM                   \\
+      RF                  & RandomForestRegressor \\
     \end{tabular}
   \end{center}
 \end{table}
 
-\subsection{Base de Dados Utilizadas}
+Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação do melhor modelo. Para cada algoritmo buscou-se a melhor configuração de parâmetros retornada pelo \textit{GridSearchCV} por meio dos seguintes passos:
 
-As bases de dados D1, D2 e D4 possuem atributos semelhantes relacionados a técnica de Estimativa de Software COCOMO.  
+\begin{outline}[enumerate]
+  \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas iniciais.
+  \1 Caso, o melhor parâmetro para uma determinada variável pertence a fronteira.
+    \2 Ajusta a opções de parâmetros extendendo a fronteira. Ex: opções iniciais [2,4,8], melhor opção [2] então novas opções [0, 2, 4].
+  \1 Volta ao passo 1, até que os melhores parâmetros não pertençam a fronteira de opções.
+ \end{outline}
 
-\subsection{Pré-Processamento dos Dados}
-
-
-\subsection{Ajuste e Treinamento dos Classificadores}
-
-A maioria dos dados selecionados possuem dados relevantes...
+ Deste modo, os resultados serão apresentados na seção a seguir.
 
 \section{Análise e Discussão}
 
-A execução...
+Os melhores parâmetros encontrados para os 5 algoritmos propostos considerando a base de dados são apresentados na Tabela \ref{tab_parametros}.
 
+\begin{table}[h!]
+  \begin{center}
+    \caption{Algoritmos, base de dados, melhores parâmetros}
+    \label{tab_parametros}
+    \begin{tabular}{r|c|l}
+      \textbf{Algoritmos} & \textbf{Base de Dados} & \textbf{ Mellhores Parâmetros} \\
+      \hline
+      DT                  & D1 & a  \\
+      MLP                 & D1 & a  \\
+      KNN                 & D1 & a  \\
+      SVM                 & D1 & a  \\
+      RF                  & D1 & a  \\
+      DT                  & D2 & a  \\
+      MLP                 & D2 & a  \\
+      KNN                 & D2 & a  \\
+      SVM                 & D2 & a  \\
+      RF                  & D2 & a  \\
+      DT                  & D3 & a  \\
+      MLP                 & D3 & a  \\
+      KNN                 & D3 & a  \\
+      SVM                 & D3 & a  \\
+      RF                  & D3 & a  \\
+      DT                  & D4 & a  \\
+      MLP                 & D4 & a  \\
+      KNN                 & D4 & a  \\
+      SVM                 & D4 & a  \\
+      RF                  & D4 & a  \\
+      DT                  & D5 & a  \\
+      MLP                 & D5 & a  \\
+      KNN                 & D5 & a  \\
+      SVM                 & D5 & a  \\
+      RF                  & D5 & a  \\
+    \end{tabular}
+  \end{center}
+\end{table}
 
+Para os melhores parâmetros, os algoritmos alcançaram os desempenhos relacionados na Tabela \ref{tab_desempenho}.
 
 \begin{table}[h!]
   \begin{center}
@@ -216,6 +287,8 @@ A execução...
 
 
 \section{Conclusão}\label{sec:figs}
+
+
 
 
 \bibliographystyle{sbc}
