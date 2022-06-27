@@ -14,7 +14,8 @@
 \sloppy
 
 
-\title{Estimativa de Esforço em Projetos de Software com Técnicas\\ de Aprendizado de Máquina}
+\title{Estimativa de Esforço em Projetos de Software com Técnicas\\ de Aprendizado de Máquina\footnote{Dados complementares, código, datasets: https://github.com/carlos-bitencourt/ia-projects}}
+
 
 \author{Carlos A. Bitencourt\inst{1}}
 
@@ -27,11 +28,11 @@
 \maketitle
 
 \begin{abstract}
-  Write after. Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write after.Write
+  The need to develop reliable and secure digital solutions and services leveraged the quest to improve Software Engineering activities. Among them, Software Effort Estimation has been improved with the use of Machine Learning. Thus, this article proposes to evaluate the accuracy of five Machine Learning Algorithms in five public domain databases, showing a better result in the DT, RF and SVM algorithms respectively.
 \end{abstract}
 
 \begin{resumo}
-  A necessidade do desenvolvimento de soluções e serviços 
+  A necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros alavancaram a busca pela melhoria de atividades de Engenharia de Software. Dentre elas a Estimativa de Esforço de Software vem sendo aprimorada com o uso de Aprendizado de Máquina. Deste modo, este artigo propõe-se a avaliar a acurácia de cinco Algoritmos de Aprendizado de Máquina em cinco bases de dados de domínio público constantando um melhor resultado nos algoritmos DT, RF e SVM respectivamente.
 
 \end{resumo}
 
@@ -277,7 +278,7 @@ Analisando as informações relacionadas na Tabela \ref{tab_desempenho}, o algor
 
 A Base de Dados a qual os algoritmos tiveram melhor desempenho foi a D2 com 0,751 de Acurácia Média seguida pela D1(0,699) e  D4(0,680) respectivamente. 
 
-Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo que obteve melhor desempenho foi o DT seguido do RF e do SVM. 
+Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo que obteve melhor desempenho foi o DT seguido do RF e do SVM.
 
 \begin{table}[h!]
   \begin{center}
@@ -285,22 +286,25 @@ Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo qu
     \label{tab_desempenho}
     \begin{tabular}{r|c|c|c|c|c|c}
       \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}    & \textbf{Média }                               \\
-      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \) & 0,691 \\ \hline
-      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & 0,592 \\ \hline
-      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \) & 0,636 \\ \hline
-      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \) & 0,679 \\ \hline
-      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \) & 0,669  \\ \hline
+      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \) & \textbf{0,691} \\ \hline
+      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & \textbf{0,592} \\ \hline
+      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \) & \textbf{0,636} \\ \hline
+      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \) & \textbf{0,679} \\ \hline
+      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \) & \textbf{0,669}  \\ \hline
       Média               & \textbf{0.699}  & \textbf{0.751}  & \textbf{0.510}  & \textbf{0.680}  & \textbf{0.628}  & \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
 
-
-
 \section{Conclusão}\label{sec:figs}
 
-Para alcançar os resultados esperados, 
+Durante a elaboração da pesquisa, constatou-se que existem vários trabalhos na área de estimativa de esforço de software com Aprendizado de Máquina. A maioria dessas técnicas foram aplicadas a dados de domínio público. Alguns algoritmos como Árvore de Decisão, Florestas de Árvores de Decisão foram relatados em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007,bhatiaattri:2015} dentre outros trabalhos.
 
+No entanto, apesar da existência dos trabalhos relatados, a escassez de base dados foi notória durante a realização da pesquisa. Muitas com poucos dados e dados de projetos antigos.
+
+Cinco base de dados disponíveis em domínio público foram escolhidas (Tabela \ref{tab_bases}): Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}. Os algoritmos utilizados para treinamento foram (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
+
+Deste modo, concluisse, após os ajustes da base de dados e treinamento dos algoritmos, que os algoritmos com os melhores desempenhos por ordem de classificação foram: DT, RF e SVM. Além disso, este estudo pode servir de apoio para pesquisas na área de Estimativa de Software com apoio da Aprendizagem de Máquina para auxiliar na fundamentação das relações produzidas na pesquisa.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
