@@ -31,7 +31,7 @@
 \end{abstract}
 
 \begin{resumo}
-  Escrever depois, máximo 10 linhas. Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois,Escrever depois.
+  A necessidade do desenvolvimento de soluções e serviços 
 
 \end{resumo}
 
@@ -196,6 +196,7 @@ Para tratamento dos dados, optou-se por excluir linhas cujos os dados fossem nul
 Após, as bases de dados foram submetidas a transformação na mesma ordem de grandeza por meio do método \textit{z-score}.
 
 \subsection{Ajustes e Treinamento dos Classificadores / Regressores}
+\label{treinamento}
 
 Foram selecionados cinco Algoritmos para análise de performance (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
 
@@ -217,20 +218,22 @@ Para implementação e execução da análise foi utilizado a biblioteca \textit
   \end{center}
 \end{table}
 
-Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação do melhor modelo. Para cada algoritmo buscou-se a melhor configuração de parâmetros retornada pelo \textit{GridSearchCV} por meio dos seguintes passos:
+Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação da Acurária juntamente como Desvio Padrão. Foi adotado o MAE inverso e portanto interpreta-se os valores quanto maior melhor (Tabela \ref{tab_desempenho}).  
+
+Para cada algoritmo buscou-se a melhor configuração de parâmetros retornada pelo \textit{GridSearchCV} por meio dos seguintes passos:
 
 \begin{outline}[enumerate]
-  \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas iniciais.
-  \1 Caso, o melhor parâmetro para uma determinada variável pertence a fronteira.
-  \2 Ajusta a opções de parâmetros extendendo a fronteira. Ex: opções iniciais [2,4,8], melhor opção [2] então novas opções [0, 2, 4].
-  \1 Volta ao passo 1, até que os melhores parâmetros não pertençam a fronteira de opções.
+  \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas.
+\1 Caso, o ``melhor parâmetro'' para uma determinada variável pertença a fronteira.
+  \2 Ajusta as opções do parâmetro extendendo a fronteira. Ex: opções iniciais [2,4,8], suponha que o resultado, de melhor parâmetro, após a execução, seja [2], então ajusta-se os parâmetros para novas opções [0, 2, 4].
+  \1 Volta ao Passo 1, até que os melhores valores de parâmetros não pertençam a fronteira de opções.
 \end{outline}
 
-Deste modo, os resultados serão apresentados na seção a seguir.
+Deste modo, busca-se garantir que os melhores valores dos parâmetros não econtram-se fora dos limites testados.
 
 \section{Análise e Discussão}
 
-Os melhores parâmetros encontrados para os 5 algoritmos propostos considerando a base de dados são apresentados na Tabela \ref{tab_parametros}.
+Os melhores parâmetros encontrados seguindo os passos descritos na Seção \ref{treinamento} para os cinco algoritmos propostos considerando a base de dados são apresentados na Tabela \ref{tab_parametros}.
 
 \begin{table}[h!]
   \begin{center}
@@ -268,19 +271,26 @@ Os melhores parâmetros encontrados para os 5 algoritmos propostos considerando 
   \end{center}
 \end{table}
 
-Para os melhores parâmetros, os algoritmos alcançaram os desempenhos relacionados na Tabela \ref{tab_desempenho}.
+Para os melhores parâmetros, os algoritmos alcançaram os desempenhos/acurácia relacionados na Tabela \ref{tab_desempenho}.
+
+Analisando as informações relacionadas na Tabela \ref{tab_desempenho}, o algoritmo com maior Acurácia Média em relação as bases de dados foi o DT(0,691) seguido do RF (0,679) e SVM (0,669) respectivamente. Sendo que o DT teve maior desempenho na base D2 com 0,798 de Acurária e o pior na D3 com 0,513. A maior acurária em relação a um Algoritmo x Base foi o RF x D2 com 0,808. E, o pior desempenho DT x D3 com 0,513.  
+
+A Base de Dados a qual os algoritmos tiveram melhor desempenho foi a D2 com 0,751 de Acurácia Média seguida pela D1(0,699) e  D4(0,680) respectivamente. 
+
+Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo que obteve melhor desempenho foi o DT seguido do RF e do SVM. 
 
 \begin{table}[h!]
   \begin{center}
-    \caption{Algoritmos e Desempenho em Erro Absoluto Médio (MAE) }
+    \caption{Algoritmos e Desempenho em Erro Absoluto Médio (MAE) e Desvio Padrão. Inverso do Erro Absoluto Médio, lê-se quanto maior melhor. }
     \label{tab_desempenho}
-    \begin{tabular}{r|c|c|c|c|c}
-      \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}                                     \\
-      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \)  \\ \hline
-      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) \\ \hline
-      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \)  \\ \hline
-      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \)  \\ \hline
-      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \)  \\ \hline
+    \begin{tabular}{r|c|c|c|c|c|c}
+      \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}    & \textbf{Média }                               \\
+      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \) & 0,691 \\ \hline
+      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & 0,592 \\ \hline
+      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \) & 0,636 \\ \hline
+      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \) & 0,679 \\ \hline
+      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \) & 0,669  \\ \hline
+      Média               & \textbf{0.699}  & \textbf{0.751}  & \textbf{0.510}  & \textbf{0.680}  & \textbf{0.628}  & \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -289,7 +299,7 @@ Para os melhores parâmetros, os algoritmos alcançaram os desempenhos relaciona
 
 \section{Conclusão}\label{sec:figs}
 
-
+Para alcançar os resultados esperados, 
 
 
 \bibliographystyle{sbc}
