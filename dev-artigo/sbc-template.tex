@@ -1,0 +1,312 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+%\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{outlines}
+\usepackage{amsmath}
+
+\sloppy
+
+
+\title{Estimativa de Esforço em Projetos de Software com Técnicas\\ de Aprendizado de Máquina\footnote{Dados complementares, código, datasets: https://github.com/carlos-bitencourt/ia-projects}}
+
+
+\author{Carlos A. Bitencourt\inst{1}}
+
+\address{Faculdade de Computação -- Universidade Federal de Mato Grosso do Sul (UFMS)\\79070-900 -- Campo Grande -- MS -- Brazil
+  \email{carlos.bitencourt@ufms.br}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  The need to develop reliable and secure digital solutions and services leveraged the quest to improve Software Engineering activities. Among them, Software Effort Estimation has been improved with the use of Machine Learning. Thus, this article proposes to evaluate the accuracy of five Machine Learning Algorithms in five public domain databases, showing a better result in the DT, RF and SVM algorithms respectively.
+\end{abstract}
+
+\begin{resumo}
+  A necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros alavancaram a busca pela melhoria de atividades de Engenharia de Software. Dentre elas a Estimativa de Esforço de Software vem sendo aprimorada com o uso de Aprendizado de Máquina. Deste modo, este artigo propõe-se a avaliar a acurácia de cinco Algoritmos de Aprendizado de Máquina em cinco bases de dados de domínio público constantando um melhor resultado nos algoritmos DT, RF e SVM respectivamente.
+
+\end{resumo}
+
+\section{Introdução}
+
+No momento atual, é notório a necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros. Para alcançar este objetivo, a Engenharia de Software é essencial para a entrega de produtos e serviços com qualidade. Uma das atividades mais importantes é a \textbf{Estimativa de Esforço de Software - EES}. A EES, pode ser aprimorada com o tempo conforme experiência da equipe. Uma vez que a estimativa pode ser aferida por meio de dados históricos, seria possível a implementação de uma solução de \textbf{Aprendizado de Máquina (AM)} para a realização de análise das métricas de um projeto de software? Assim sendo, poder-se-ia aproveitar a base de conhecimento de outras equipes para a predição de estimativas? Reduzindo assim análises equivocadas e tornando cada vez mais preciso as estimativas dos cronogramas dos projetos.
+
+Embora muitas pesquisas tenham sido feitas em EES nos últimos anos, a precisão das estimativas  ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
+
+Assim sendo, o objetivo desse trabalho é realizar uma exploração preliminar da aplicação de ao menos cinco algoritmos de Aprendizagem de Máquina sobre algumas bases de dados públicas contendo informações de EES.
+
+\section{Referencial Teórico} \label{sec:refteorico}
+
+Na fundamentação teórica, para que se possa embasar uma análise adequada, faz-se necessário enumerar e descrever os modelos e técnicas de aprendizado de máquina as serem utilizados nesta pesquisa, bem como uma breve análise das pesquisas sobre estimativa de esforço de software com Aprendizado de Máquina.
+
+\subsection{Aprendizado de Máquina (AM)}
+
+Um dos primeiros exemplos de um sistema de aprendizagem de máquina, foi um programa desenvolvido por Samuel (1959) para jogar damas. Com este programa, foi possível demonstrar como um programa poderia melhorar o seu processamento de dados, sem ser programado. Ou seja, um programa poderia ser treinado para fazer previsões \cite{ieee:2013,samuel:1959}.
+
+Ao longo dos anos, por meio do desenvolvimento de técnicas, métodos e novos algoritmos para o campo da AM foi possível desenvolver uma série de serviços \cite{abadaletal:2020}.
+
+Conceitualmente pode-se delinear a AM com o postulado de Mitchell (1997):
+\begin{quote}
+  Um programa de computador é dito aprender a partir de uma experiência E com respeito a uma classe de tarefas T e medida de desempenho P, se seu desempenho em tarefas de T, medido por P, melhora a experiência E. \cite[p. 2, tradução nossa]{mitchell:1997}
+\end{quote}
+
+Deste modo, por meio de modelos que representam hipóteses, é possível medir o conhecimento aprendido por um processo de indução, que pode ser visto como um processo de busca em que se almeja encontrar a melhor hipótese \cite{stuartnorvig:2013}.
+
+Nas subseções a seguir serão apresentados alguns técnicas, conceitos e algoritmos de aprendizagem de máquina que serão utilizados nesta pesquisa.
+
+\subsubsection{Árvores de Decisão (Decision Tree - DT)}
+
+Uma árvores de decisão toma como entrada um vetor de atributos e retorna uma decisão única. Os valores de entrada e saída podem ser discretos ou contínuos.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.4\textwidth]{img/fig_arvore_decisao.png}
+  \caption{Árvore de Decisão para jogar tênis. Adaptado de Mitchell (1997).}
+  \label{fig_arvore_decisao}
+\end{figure}
+
+Na Figura~\ref{fig_arvore_decisao}, pode-se observar um exemplo de árvore de decisão, que representa de forma natural ao ser humano os passos para decidir se deve ou não jogar tênis. Cada nó folha da árvore especifica o valor a ser retornado pela função.
+
+Uma forma de medir a importância (ganho de informação) de uma atributo, é por meio do conceito de \textbf{Entropia}, que é a medida de incerteza de uma variável aleatória. Quanto mais informações são necessárias para aprender, maior é a entropia, por outro lado, se não é necessário nenhuma informação a entropia é igual a zero. Dado que a entropia mensura o quão impuro os dados de um coleção estão, pode-se definir o ganho de informação de um atributo A em relação a uma coleção $V$ como:
+\begin{equation}
+  Ganho(V, A) = Entropia(V) - \sum_{v\in A_k}\frac{|V_v|}{|V|} Entropia(V_v)
+\end{equation}
+Assim sendo, é possível calcular o Ganho de informação para realização do treinamento. Para dados contínuos, como por exemplo previsão de preços, o algoritmo de árvore de decisão deve encontrar pontos de divisão entre os valores \cite{mitchell:1997,stuartnorvig:2013}.
+
+\subsubsection{Redes Neurais Artificiais (RNA)}
+
+Inspirado no funcionamento do cérebro humano, as Redes Neurais Artificiais são representadas por uma coleção de classificadores lineares conectados cujas propriedades são determinadas pela topologia e pelas propriedades dos ``neurônios'' (Figura~\ref{fig_neuronio}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.4\textwidth]{img/fig_neuronio.png}
+  \caption{Modelo de Neurônio. Fonte: \cite{haykin:2001}}
+  \label{fig_neuronio}
+\end{figure}
+
+Um neurônio é uma unidade de processamento de informação onde podemos identificar três elementos básicos. O primeiro é um conjunto de sinais de entradas com \textit{sinapses} caracterizada por pesos ou forças. O segundo, um somador que trata os sinais de entrada. E, por fim uma função de ativação que limita os sinais de saída. Em termos matemáticos pode-se descrever um neurônio $k$ com os sequintes pares de equações:
+
+\begin{equation}
+  u_k = \sum_{j = 1}^{m} w_{kj}x_j
+\end{equation}
+e
+\begin{equation}
+  y_k = \varphi (u_k + b_k)
+\end{equation}
+de modo que $x_1, x_2, \ldots, x_n$ são os sinais de entrada; $w_{k1}, w_{k2}, \ldots, w_{km}$ são os pesos sinápticos; $u_k$ a saída dos sinais de entrada; e $y_k$ é o sinal de saída.
+
+É possível organizar a topologia de uma rede neural em diversas camadas, com diferentes número de unidades por camada, aumentando a capacidade da rede de aprender \cite{haykin:2001}.
+
+\subsubsection{K-Vizinhos Mais Próximos (\textbf{K-Nearest Neighbors - KNN})}
+
+Algoritmos baseados em instâncias baseiam o seu aprendizado no armazenamento dos dados de treinamento para utilização na classificação de uma entrada nova. Um dos algoritmos mais utilizados nesta abordagem é o \textbf{KNN}.
+
+Os vizinhos mais próximos podem ser calculados pela \textbf{distância euclidiana}. Dado uma instância $x$ descrita pelo vetor $[a_1(x), a_2(x), \ldots a_n(x)]$, onde $a_k$ é o $k$-ésimo atributo da instância x, então a distância de $x_i$ e $x_j$ é definida:
+\begin{equation}
+  d(x_i, x_j) = \sqrt{\sum_{k = 1}^{n} (a_k(x_i) + a_k(x_j))^2 }
+\end{equation}
+
+Para classificar, primeiro encontre os $k$ vizinhos mais próximos e realize um processo de contagem. A classe majoritária será atribuída ao novo objeto. Para evitar empates, recomenda-se sempre escolher um número ímpar para $k$. Para classes contínuas, pode-se tirar a média ou mediana de $k$ vizinhos \cite{mitchell:1997,stuartnorvig:2013}.
+
+\subsubsection{Máquinas de Vetor de Suporte (Support Vector Machine - SVM)}
+A \textbf{Máquina de Vetor de Suporte (SVM)} contém três propriedades relevantes. A primeira, diz respeito a capacidade de construir um \textbf{separador de margem máxima} que contribui na generalização. A segunda, é a capacidade de, além de tratar dados lineares, incorporar os dados em um espaço de dimensão superior. Terceiro, apesar de ser um método não paramétrico, na prática, acabam mantendo apenas uma fração do número de exemplos. A idéia é considerar alguns exemplos mais importantes que os outros o que pode levar a uma generalização melhor.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.6\textwidth]{img/fig_svm.png}
+  \caption{Máquina de Vetor de Suporte. (a) Duas classes vários separadores lineares candidatos. (b) O separador de margem máxima ao centro. Adaptado de \cite{bruno:2020}}
+  \label{fig_svm}
+\end{figure}
+
+Na Figura~\ref{fig_svm}, pode-se observar em (a) várias possibilidades de separação, enquanto em (b) busca-se o separador médio mais distantes das classes, chama-se o separador de \textbf{margem máxima}, dessa forma pode-se minimizar a perda de generalização \cite{stuartnorvig:2013}.
+
+\subsubsection{Floresta Aleatória (Random Florest - RF)}
+
+O Algoritmo de Floresta Aleatória consiste em um classificador cuja topologia é uma coleção de classificadores estruturados em árvores.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.4\textwidth]{img/fig_random_forest.png}
+  \caption{Modelo de Floresta Aleatória. Adaptado de \cite{liuetal:2012}}
+  \label{fig_random_forest}
+\end{figure}
+
+Como pode-se observar na Figura \ref{fig_random_forest}, cada árvore recebe um conjunto de treinamento aleatório, que após os dados toma uma decisão representada pela equação \ref{eq_random_forest}:
+
+\begin{equation}
+  H(x) = arg \max_Y \sum_{i = 1}^{k} I (h_i(x) = Y)
+  \label{eq_random_forest}
+\end{equation}
+onde $H(x)$ é uma combinação do modelo de classificação, $h_i$ é a decisão de uma das árvores, $Y$ é a variável de saída. Cada árvore tem direito a um voto para selecionar o melhor resultado de classificação \cite{liuetal:2012}.
+
+
+\subsection{Estimativa de Esforço de Software e Aprendizagem de Máquina}
+
+Muitas pesquisas tem sido feitas na área de estimativas de esforço de softwares nos últimos anos. No entanto, a precisão das estimativas de esforço de software ainda é uma grande preocupação, tendo em vista, que estimativas imprecisas podem levar a atrasos e aumento de custos em um projeto. Nas últimas décadas, foram propostos vários métodos para estimativa de esforço de software os quais, normalmente, descrevem a estimativa de esforço por meio de fórmulas que consideram parâmetros históricos como por exemplo, experiência da equipe, linguagem de programação dentre outros \cite{asadegravino:2019}.
+
+Nas ultimas três décadas os estudos que aplicam o AM na estimativa de software foi ampliado motivado pela ampla margem de erro nos métodos tradicionais de estimativa e pela melhoria contínua dos algoritmos de aprendizado de máquina \cite{banimustafa:2018}.
+
+Vários algoritmos foram utilizados para estimar esforço, custo e tempo de desenvolvimento de software. A maioria dessas técnicas foram aplicadas a dados públicos. Árvore de Decisão, Florestas de Árvores de Decisão em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007, bhatiaattri:2015} dentre muitos outros trabalhos.
+
+Ali e Gravino (2019) por meio de uma revisão sistemática da literatura sobre estimativa de eforço de software baseado em aprendizam de máquina, resgataram a análise sistemática de \cite{wen:2012} e complementaram com os próximos anos. Nesta análise, eles reponderam questões como quais as bases de dados mais utilizadas nas pesquisas? Quais os algoritmos quais obtiveram o maior desempenho? Quais as métricas mais utilizadas? Dentre os estudos avaliados, as três técnicas mais utilizadas foram respectivamente Redes Neurais Artificiais, Máquinas de Vetores de Suporte e Redes Bayseanas. A técnica K-Vizinhos Mais Próximos em quinto, Árvores de Decisão em sexto e por fim, Floresta Aletória em oitava posição. Dentre as bases de dados mais usadas nos estudos, as três primeiras foram a NASA, COCOMO e ISBSG respectivamente.
+
+Em relação as métricas, Magnitude Média do Erro Relativo (Mean Magnitude of Relative Error - MMRE) e Porcentagem de Previsões de 25 por cento (Percentage of Predictions - Pred(25)) foram amplamente usadas sendo que o Erro Absoluto Médio (Mean Absolute Error - MAE) ficou em quarto mais utilizado.
+
+\section{Metodologia}
+
+Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente, todas  relacionadas a Estimativas de Esforço de Software (Tabela \ref{tab_bases}): Cocomo81 (D1), Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}.
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Base de Dados}
+    \label{tab_bases}
+    \begin{tabular}{r|c|c|c|c}
+      \textbf{ID}      & \textbf{Nº Atr.} & \textbf{Nº Atr.} & \textbf{Nº Linhas} & \textbf{Nº Linhas} \\
+      \textbf{}        & \textbf{Inicial} & \textbf{Final}   & \textbf{ Inicial}  & \textbf{Final}     \\
+      \hline
+      Cocomo81 (D1)    & 17               & 17               & 63                 & 63                 \\
+      Cocomonasa (D2)  & 17               & 17               & 60                 & 60                 \\
+      Desharnais (D3)  & 12               & 17               & 81                 & 60                 \\
+      Nasanumeric (D4) & 24               & 41               & 93                 & 93                 \\
+      Seera (D5)       & 76               & 33               & 120                & 111                \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+As bases de dados D1, D2, D3 e D4 possuem atributos semelhantes relacionados a técnica de Estimativa de Software COCOMO \cite{boehm:1981}. Este modelo, estima o esforço de desenvolvimento de software em relação a homem-mês considerando o tamanho do código (LOC) ou Pontos por função \cite{banimustafa:2018}. A fórmula geral:
+
+\begin{equation}
+  Effort = A S^b
+\end{equation}
+
+Sendo $A$ um parâmetro de produtividade, $b$ um parâmetro escalável de economia e $S$ linhas por código (LOC) ou Pontos por função \cite{shepperd:1997}.
+
+Deste modo, ``Effort'' representa o atributo Classe das Bases de Dados. A base de dados D5, possui dados mais recentes e completos contendo 76 atributos inicialmente, muito mais que as demais bases, 24 (D4), 12 (D3) e 17 (D1, D2) (Tabela \ref{tab_bases}).
+
+Para tratamento dos dados, optou-se por excluir linhas cujos os dados fossem nulos ou vazios. Deste modo, após a identificação e exclusão destas linhas, não houve alteração nas bases D1, D2 e D3, foram removidas 19 linhas da base D4 e 11 linhas da base D5. Em relação aos atributos, foi necessário o ajuste de atributos textuais em numéricos nas bases D2 e D4, ajustes em atributos categóricos nas bases D3 (``language''), D4 (``cat2'') e D5 (``Programming language used''), resultando na alteração do número dos atributos finais como pode ser observado na Tabela \ref{tab_bases}. Além disso, foram removidos alguns atributos descritivos como ano de projeto e identificadores. Para a base D5, foram removidos vários atributos cujo valor compunha outro atributo presente, ou seja, dados derivados, mantendo-se atributos considerados relavantes e semelhantes as demais bases.
+
+Após, as bases de dados foram submetidas a transformação na mesma ordem de grandeza por meio do método \textit{z-score}.
+
+\subsection{Ajustes e Treinamento dos Classificadores / Regressores}
+\label{treinamento}
+
+Foram selecionados cinco Algoritmos para análise de performance (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
+
+Para implementação e execução da análise foi utilizado a biblioteca \textit{Scikit-learn} \cite{scikitlearn:2011} com a linguagem de programação \textit{Python}.
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Algoritmos e componentes \textit{Scikit-learn}}
+    \label{tab_algoritmos}
+    \begin{tabular}{l|l}
+      \textbf{Algoritmos} & \textbf{Componentes}  \\
+      \hline
+      DT                  & DecisionTreeRegressor \\
+      MLP                 & MLPRegressor          \\
+      KNN                 & KNeighborsRegressor   \\
+      SVM                 & SVR                   \\
+      RF                  & RandomForestRegressor \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação da Acurária juntamente como Desvio Padrão. Foi adotado o MAE inverso e portanto interpreta-se os valores quanto maior melhor (Tabela \ref{tab_desempenho}).  
+
+Para cada algoritmo buscou-se a melhor configuração de parâmetros retornada pelo \textit{GridSearchCV} por meio dos seguintes passos:
+
+\begin{outline}[enumerate]
+  \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas.
+\1 Caso, o ``melhor parâmetro'' para uma determinada variável pertença a fronteira.
+  \2 Ajusta as opções do parâmetro extendendo a fronteira. Ex: opções iniciais [2,4,8], suponha que o resultado, de melhor parâmetro, após a execução, seja [2], então ajusta-se os parâmetros para novas opções [0, 2, 4].
+  \1 Volta ao Passo 1, até que os melhores valores de parâmetros não pertençam a fronteira de opções.
+\end{outline}
+
+Deste modo, busca-se garantir que os melhores valores dos parâmetros não econtram-se fora dos limites testados.
+
+\section{Análise e Discussão}
+
+Os melhores parâmetros encontrados seguindo os passos descritos na Seção \ref{treinamento} para os cinco algoritmos propostos considerando a base de dados são apresentados na Tabela \ref{tab_parametros}.
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Algoritmos, base de dados, melhores parâmetros}
+    \label{tab_parametros}
+    \begin{tabular}{r|c|l}
+      \textbf{Algoritmos} & \textbf{Base de Dados} & \textbf{ Melhores Parâmetros}        \\
+      \hline
+      DT                  & D1                     & \scriptsize{\verb=criterion: absolute_error,max_depth: 8, splitter: random=}  \\ \hline
+      KNN                 & D1                     & \scriptsize{\verb=algorithm: ball_tree, n_neighbors: 4, weights: distance=}  \\ \hline
+      MLP                 & D1                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 60, solver: lbfgs=}  \\ \hline
+      RF                  & D1                     & \scriptsize{\verb=max_depth: 6, n_estimators: 15=}  \\ \hline
+      SVM                 & D1                     & \scriptsize{\verb=C: 10, epsilon: 0.023, kernel: linear=}  \\ \hline
+      DT                  & D2                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 9, splitter: random=}  \\ \hline
+      KNN                 & D2                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 8, weights: distance=}  \\ \hline
+      MLP                 & D2                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 50, solver: lbfgs=}  \\ \hline
+      RF                  & D2                     & \scriptsize{\verb=max_depth: 10, n_estimators: 5=}  \\ \hline
+      SVM                 & D2                     & \scriptsize{\verb=C: 20, epsilon: 0.005, kernel: poly=} \\ \hline
+      DT                  & D3                     & \scriptsize{\verb=criterion: squared_error, max_depth: 11,splitter: random=} \\ \hline
+      KNN                 & D3                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 4, weights: distance=} \\ \hline
+      MLP                 & D3                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 50,  solver: sgd=} \\ \hline
+      RF                  & D3                     & \scriptsize{\verb=max_depth: 8, n_estimators: 4=} \\ \hline
+      SVM                 & D3                     & \scriptsize{\verb=C: 0.2, epsilon: 0.0005, kernel: sigmoid=} \\ \hline
+      DT                  & D4                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 10, splitter: random=} \\ \hline
+      KNN                 & D4                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 23, weights: distance=} \\ \hline
+      MLP                 & D4                     & \scriptsize{\verb=activation: logistic, hidden_layer_sizes: 5,  solver: sgd=} \\ \hline
+      RF                  & D4                     & \scriptsize{\verb=max_depth: 11, n_estimators: 5=} \\ \hline
+      SVM                 & D4                     & \scriptsize{\verb=C: 6, epsilon: 0.0002, kernel: poly=} \\ \hline
+      DT                  & D5                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 4, splitter: random=} \\ \hline
+      KNN                 & D5                     & \scriptsize{\verb=algorithm: kd_tree, n_neighbors: 7, weights: distance=} \\ \hline
+      MLP                 & D5                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 18, solver: adam=} \\ \hline
+      RF                  & D5                     & \scriptsize{\verb=max_depth: 7, n_estimators: 7=} \\ \hline
+      SVM                 & D5                     & \scriptsize{\verb=C: 4, epsilon: 0.13999, kernel: linear=} \\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Para os melhores parâmetros, os algoritmos alcançaram os desempenhos/acurácia relacionados na Tabela \ref{tab_desempenho}.
+
+Analisando as informações relacionadas na Tabela \ref{tab_desempenho}, o algoritmo com maior Acurácia Média em relação as bases de dados foi o DT(0,691) seguido do RF (0,679) e SVM (0,669) respectivamente. Sendo que o DT teve maior desempenho na base D2 com 0,798 de Acurária e o pior na D3 com 0,513. A maior acurária em relação a um Algoritmo x Base foi o RF x D2 com 0,808. E, o pior desempenho DT x D3 com 0,513.  
+
+A Base de Dados a qual os algoritmos tiveram melhor desempenho foi a D2 com 0,751 de Acurácia Média seguida pela D1(0,699) e  D4(0,680) respectivamente. 
+
+Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo que obteve melhor desempenho foi o DT seguido do RF e do SVM.
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Algoritmos e Desempenho em Erro Absoluto Médio (MAE) e Desvio Padrão. Inverso do Erro Absoluto Médio, lê-se quanto maior melhor. }
+    \label{tab_desempenho}
+    \begin{tabular}{r|c|c|c|c|c|c}
+      \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}    & \textbf{Média }                               \\
+      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \) & \textbf{0,691} \\ \hline
+      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & \textbf{0,592} \\ \hline
+      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \) & \textbf{0,636} \\ \hline
+      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \) & \textbf{0,679} \\ \hline
+      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \) & \textbf{0,669}  \\ \hline
+      Média               & \textbf{0.699}  & \textbf{0.751}  & \textbf{0.510}  & \textbf{0.680}  & \textbf{0.628}  & \\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\section{Conclusão}\label{sec:figs}
+
+Durante a elaboração da pesquisa, constatou-se que existem vários trabalhos na área de estimativa de esforço de software com Aprendizado de Máquina. A maioria dessas técnicas foram aplicadas a dados de domínio público. Alguns algoritmos como Árvore de Decisão, Florestas de Árvores de Decisão foram relatados em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007,bhatiaattri:2015} dentre outros trabalhos.
+
+No entanto, apesar da existência dos trabalhos relatados, a escassez de base dados foi notória durante a realização da pesquisa. Muitas com poucos dados e dados de projetos antigos.
+
+Cinco base de dados disponíveis em domínio público foram escolhidas (Tabela \ref{tab_bases}): Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}. Os algoritmos utilizados para treinamento foram (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
+
+Deste modo, concluisse, após os ajustes da base de dados e treinamento dos algoritmos, que os algoritmos com os melhores desempenhos por ordem de classificação foram: DT, RF e SVM. Além disso, este estudo pode servir de apoio para pesquisas na área de Estimativa de Software com apoio da Aprendizagem de Máquina para auxiliar na fundamentação das relações produzidas na pesquisa.
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}
