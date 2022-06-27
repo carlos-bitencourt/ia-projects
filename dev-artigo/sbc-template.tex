@@ -9,6 +9,7 @@
 %\usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 \usepackage{outlines}
+\usepackage{amsmath}
 
 \sloppy
 
@@ -210,7 +211,7 @@ Para implementação e execução da análise foi utilizado a biblioteca \textit
       DT                  & DecisionTreeRegressor \\
       MLP                 & MLPRegressor          \\
       KNN                 & KNeighborsRegressor   \\
-      SVM                 & SVM                   \\
+      SVM                 & SVR                   \\
       RF                  & RandomForestRegressor \\
     \end{tabular}
   \end{center}
@@ -221,11 +222,11 @@ Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e
 \begin{outline}[enumerate]
   \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas iniciais.
   \1 Caso, o melhor parâmetro para uma determinada variável pertence a fronteira.
-    \2 Ajusta a opções de parâmetros extendendo a fronteira. Ex: opções iniciais [2,4,8], melhor opção [2] então novas opções [0, 2, 4].
+  \2 Ajusta a opções de parâmetros extendendo a fronteira. Ex: opções iniciais [2,4,8], melhor opção [2] então novas opções [0, 2, 4].
   \1 Volta ao passo 1, até que os melhores parâmetros não pertençam a fronteira de opções.
- \end{outline}
+\end{outline}
 
- Deste modo, os resultados serão apresentados na seção a seguir.
+Deste modo, os resultados serão apresentados na seção a seguir.
 
 \section{Análise e Discussão}
 
@@ -236,33 +237,33 @@ Os melhores parâmetros encontrados para os 5 algoritmos propostos considerando 
     \caption{Algoritmos, base de dados, melhores parâmetros}
     \label{tab_parametros}
     \begin{tabular}{r|c|l}
-      \textbf{Algoritmos} & \textbf{Base de Dados} & \textbf{ Mellhores Parâmetros} \\
+      \textbf{Algoritmos} & \textbf{Base de Dados} & \textbf{ Melhores Parâmetros}        \\
       \hline
-      DT                  & D1 & a  \\
-      MLP                 & D1 & a  \\
-      KNN                 & D1 & a  \\
-      SVM                 & D1 & a  \\
-      RF                  & D1 & a  \\
-      DT                  & D2 & a  \\
-      MLP                 & D2 & a  \\
-      KNN                 & D2 & a  \\
-      SVM                 & D2 & a  \\
-      RF                  & D2 & a  \\
-      DT                  & D3 & a  \\
-      MLP                 & D3 & a  \\
-      KNN                 & D3 & a  \\
-      SVM                 & D3 & a  \\
-      RF                  & D3 & a  \\
-      DT                  & D4 & a  \\
-      MLP                 & D4 & a  \\
-      KNN                 & D4 & a  \\
-      SVM                 & D4 & a  \\
-      RF                  & D4 & a  \\
-      DT                  & D5 & a  \\
-      MLP                 & D5 & a  \\
-      KNN                 & D5 & a  \\
-      SVM                 & D5 & a  \\
-      RF                  & D5 & a  \\
+      DT                  & D1                     & \scriptsize{\verb=criterion: absolute_error,max_depth: 8, splitter: random=}  \\ \hline
+      KNN                 & D1                     & \scriptsize{\verb=algorithm: ball_tree, n_neighbors: 4, weights: distance=}  \\ \hline
+      MLP                 & D1                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 60, solver: lbfgs=}  \\ \hline
+      RF                  & D1                     & \scriptsize{\verb=max_depth: 6, n_estimators: 15=}  \\ \hline
+      SVM                 & D1                     & \scriptsize{\verb=C: 10, epsilon: 0.023, kernel: linear=}  \\ \hline
+      DT                  & D2                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 9, splitter: random=}  \\ \hline
+      KNN                 & D2                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 8, weights: distance=}  \\ \hline
+      MLP                 & D2                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 50, solver: lbfgs=}  \\ \hline
+      RF                  & D2                     & \scriptsize{\verb=max_depth: 10, n_estimators: 5=}  \\ \hline
+      SVM                 & D2                     & \scriptsize{\verb=C: 20, epsilon: 0.005, kernel: poly=} \\ \hline
+      DT                  & D3                     & \scriptsize{\verb=criterion: squared_error, max_depth: 11,splitter: random=} \\ \hline
+      KNN                 & D3                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 4, weights: distance=} \\ \hline
+      MLP                 & D3                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 50,  solver: sgd=} \\ \hline
+      RF                  & D3                     & \scriptsize{\verb=max_depth: 8, n_estimators: 4=} \\ \hline
+      SVM                 & D3                     & \scriptsize{\verb=C: 0.2, epsilon: 0.0005, kernel: sigmoid=} \\ \hline
+      DT                  & D4                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 10, splitter: random=} \\ \hline
+      KNN                 & D4                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 23, weights: distance=} \\ \hline
+      MLP                 & D4                     & \scriptsize{\verb=activation: logistic, hidden_layer_sizes: 5,  solver: sgd=} \\ \hline
+      RF                  & D4                     & \scriptsize{\verb=max_depth: 11, n_estimators: 5=} \\ \hline
+      SVM                 & D4                     & \scriptsize{\verb=C: 6, epsilon: 0.0002, kernel: poly=} \\ \hline
+      DT                  & D5                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 4, splitter: random=} \\ \hline
+      KNN                 & D5                     & \scriptsize{\verb=algorithm: kd_tree, n_neighbors: 7, weights: distance=} \\ \hline
+      MLP                 & D5                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 18, solver: adam=} \\ \hline
+      RF                  & D5                     & \scriptsize{\verb=max_depth: 7, n_estimators: 7=} \\ \hline
+      SVM                 & D5                     & \scriptsize{\verb=C: 4, epsilon: 0.13999, kernel: linear=} \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -273,13 +274,13 @@ Para os melhores parâmetros, os algoritmos alcançaram os desempenhos relaciona
   \begin{center}
     \caption{Algoritmos e Desempenho em Erro Absoluto Médio (MAE) }
     \label{tab_desempenho}
-    \begin{tabular}{l|c|c|c|c|c}
-      \textbf{Algoritmos} & \textbf{D1} & \textbf{D2} & \textbf{D3} & \textbf{D4} & \textbf{D5} \\
-      DT                  & 1           & 1           & 1           & 1           & 1           \\
-      MLP                 & 1           & 1           & 1           & 1           & 1           \\
-      KNN                 & 1           & 1           & 1           & 1           & 1           \\
-      SVM                 & 1           & 1           & 1           & 1           & 1           \\
-      RF                  & 1           & 1           & 1           & 1           & 1           \\
+    \begin{tabular}{r|c|c|c|c|c}
+      \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}                                     \\
+      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \)  \\ \hline
+      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) \\ \hline
+      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \)  \\ \hline
+      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \)  \\ \hline
+      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \)  \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
