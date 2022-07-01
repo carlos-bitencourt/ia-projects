@@ -32,7 +32,7 @@
 \end{abstract}
 
 \begin{resumo}
-  A necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros alavancaram a busca pela melhoria de atividades de Engenharia de Software. Dentre elas a Estimativa de Esforço de Software vem sendo aprimorada com o uso de Aprendizado de Máquina. Deste modo, este artigo propõe-se a avaliar a acurácia de cinco Algoritmos de Aprendizado de Máquina em cinco bases de dados de domínio público constantando um melhor resultado nos algoritmos DT, RF e SVM respectivamente.
+  A necessidade do desenvolvimento de soluções e serviços digitais confiáveis e seguros alavancaram a busca pela melhoria de atividades de Engenharia de Software. Dentre elas a Estimativa de Esforço de Software vem sendo aprimorada com o uso de Aprendizado de Máquina. Deste modo, este artigo propõe-se a avaliar a acurácia de cinco Algoritmos de Aprendizado de Máquina em cinco bases de dados de domínio público constatando um melhor resultado nos algoritmos DT, RF e SVM respectivamente.
 
 \end{resumo}
 
@@ -135,7 +135,7 @@ O Algoritmo de Floresta Aleatória consiste em um classificador cuja topologia �
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.4\textwidth]{img/fig_random_forest.png}
+  \includegraphics[width=.6\textwidth]{img/fig_random_forest.png}
   \caption{Modelo de Floresta Aleatória. Adaptado de \cite{liuetal:2012}}
   \label{fig_random_forest}
 \end{figure}
@@ -155,7 +155,7 @@ Muitas pesquisas tem sido feitas na área de estimativas de esforço de software
 
 Nas ultimas três décadas os estudos que aplicam o AM na estimativa de software foi ampliado motivado pela ampla margem de erro nos métodos tradicionais de estimativa e pela melhoria contínua dos algoritmos de aprendizado de máquina \cite{banimustafa:2018}.
 
-Vários algoritmos foram utilizados para estimar esforço, custo e tempo de desenvolvimento de software. A maioria dessas técnicas foram aplicadas a dados públicos. Árvore de Decisão, Florestas de Árvores de Decisão em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COMOMO \cite{trontoetal:2007, bhatiaattri:2015} dentre muitos outros trabalhos.
+Vários algoritmos foram utilizados para estimar esforço, custo e tempo de desenvolvimento de software. A maioria dessas técnicas foram aplicadas a dados públicos. Árvore de Decisão, Florestas de Árvores de Decisão em \cite{nassifetal:2013}, o uso de programação genética foi relatado em \cite{chavoyaetal:2012}. Uso de Redes Neurais Artificiais foram usadas para prever o esforço e foram comparadas com a estimativa do modelo COCOMO \cite{trontoetal:2007, bhatiaattri:2015} dentre muitos outros trabalhos.
 
 Ali e Gravino (2019) por meio de uma revisão sistemática da literatura sobre estimativa de eforço de software baseado em aprendizam de máquina, resgataram a análise sistemática de \cite{wen:2012} e complementaram com os próximos anos. Nesta análise, eles reponderam questões como quais as bases de dados mais utilizadas nas pesquisas? Quais os algoritmos quais obtiveram o maior desempenho? Quais as métricas mais utilizadas? Dentre os estudos avaliados, as três técnicas mais utilizadas foram respectivamente Redes Neurais Artificiais, Máquinas de Vetores de Suporte e Redes Bayseanas. A técnica K-Vizinhos Mais Próximos em quinto, Árvores de Decisão em sexto e por fim, Floresta Aletória em oitava posição. Dentre as bases de dados mais usadas nos estudos, as três primeiras foram a NASA, COCOMO e ISBSG respectivamente.
 
@@ -163,26 +163,26 @@ Em relação as métricas, Magnitude Média do Erro Relativo (Mean Magnitude of 
 
 \section{Metodologia}
 
-Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente, todas  relacionadas a Estimativas de Esforço de Software (Tabela \ref{tab_bases}): Cocomo81 (D1), Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}.
+Para realização da pesquisa, foram selecionadas cinco bases de dados disponíveis publicamente, todas  relacionadas a Estimativas de Esforço de Software (Tabela \ref{tab_bases}): Cocomo81, Cocomonasa, Desharnais, Nasanumeric e Seera \cite{promise:2005, nasanumeric:2014, seera:2020}.
 
 \begin{table}[h!]
   \begin{center}
     \caption{Base de Dados}
     \label{tab_bases}
     \begin{tabular}{r|c|c|c|c}
-      \textbf{ID}      & \textbf{Nº Atr.} & \textbf{Nº Atr.} & \textbf{Nº Linhas} & \textbf{Nº Linhas} \\
-      \textbf{}        & \textbf{Inicial} & \textbf{Final}   & \textbf{ Inicial}  & \textbf{Final}     \\
+      \textbf{ID} & \textbf{Nº Atr.} & \textbf{Nº Atr.} & \textbf{Nº Linhas} & \textbf{Nº Linhas} \\
+      \textbf{}   & \textbf{Inicial} & \textbf{Final}   & \textbf{ Inicial}  & \textbf{Final}     \\
       \hline
-      Cocomo81 (D1)    & 17               & 17               & 63                 & 63                 \\
-      Cocomonasa (D2)  & 17               & 17               & 60                 & 60                 \\
-      Desharnais (D3)  & 12               & 17               & 81                 & 60                 \\
-      Nasanumeric (D4) & 24               & 41               & 93                 & 93                 \\
-      Seera (D5)       & 76               & 33               & 120                & 111                \\
+      Cocomo81    & 17               & 17               & 63                 & 63                 \\
+      Cocomonasa  & 17               & 17               & 60                 & 60                 \\
+      Desharnais  & 12               & 17               & 81                 & 60                 \\
+      Nasanumeric & 24               & 41               & 93                 & 93                 \\
+      Seera       & 76               & 33               & 120                & 111                \\
     \end{tabular}
   \end{center}
 \end{table}
 
-As bases de dados D1, D2, D3 e D4 possuem atributos semelhantes relacionados a técnica de Estimativa de Software COCOMO \cite{boehm:1981}. Este modelo, estima o esforço de desenvolvimento de software em relação a homem-mês considerando o tamanho do código (LOC) ou Pontos por função \cite{banimustafa:2018}. A fórmula geral:
+As bases de dados Cocomo81, Cocomonasa, Desharnais e Nasanumeric possuem atributos semelhantes relacionados a técnica de Estimativa de Software COCOMO \cite{boehm:1981}. Este modelo, estima o esforço de desenvolvimento de software em relação a homem-mês considerando o tamanho do código (LOC) ou Pontos por função \cite{banimustafa:2018}. A fórmula geral:
 
 \begin{equation}
   Effort = A S^b
@@ -190,9 +190,9 @@ As bases de dados D1, D2, D3 e D4 possuem atributos semelhantes relacionados a t
 
 Sendo $A$ um parâmetro de produtividade, $b$ um parâmetro escalável de economia e $S$ linhas por código (LOC) ou Pontos por função \cite{shepperd:1997}.
 
-Deste modo, ``Effort'' representa o atributo Classe das Bases de Dados. A base de dados D5, possui dados mais recentes e completos contendo 76 atributos inicialmente, muito mais que as demais bases, 24 (D4), 12 (D3) e 17 (D1, D2) (Tabela \ref{tab_bases}).
+Deste modo, ``Effort'' representa o atributo Classe das Bases de Dados. A base de dados Seera, possui dados mais recentes e completos contendo 76 atributos inicialmente, muito mais que as demais bases, 24 (Nasanumeric), 12 (Desharnais) e 17 (Cocomo81, Cocomonasa) (Tabela \ref{tab_bases}).
 
-Para tratamento dos dados, optou-se por excluir linhas cujos os dados fossem nulos ou vazios. Deste modo, após a identificação e exclusão destas linhas, não houve alteração nas bases D1, D2 e D3, foram removidas 19 linhas da base D4 e 11 linhas da base D5. Em relação aos atributos, foi necessário o ajuste de atributos textuais em numéricos nas bases D2 e D4, ajustes em atributos categóricos nas bases D3 (``language''), D4 (``cat2'') e D5 (``Programming language used''), resultando na alteração do número dos atributos finais como pode ser observado na Tabela \ref{tab_bases}. Além disso, foram removidos alguns atributos descritivos como ano de projeto e identificadores. Para a base D5, foram removidos vários atributos cujo valor compunha outro atributo presente, ou seja, dados derivados, mantendo-se atributos considerados relavantes e semelhantes as demais bases.
+Para tratamento dos dados, optou-se por excluir linhas cujos os dados fossem nulos ou vazios. Deste modo, após a identificação e exclusão destas linhas, não houve alteração nas bases Cocomo81, Cocomonasa e Desharnais, foram removidas 19 linhas da base Nasanumeric e 11 linhas da base Seera. Em relação aos atributos, foi necessário o ajuste de atributos textuais em numéricos nas bases Cocomonasa e Nasanumeric, ajustes em atributos categóricos nas bases Desharnais (``language''), Nasanumeric (``cat2'') e Seera (``Programming language used''), resultando na alteração do número dos atributos finais como pode ser observado na Tabela \ref{tab_bases}. Além disso, foram removidos alguns atributos descritivos como ano de projeto e identificadores. Para a base Seera, foram removidos vários atributos cujo valor compunha outro atributo presente, ou seja, dados derivados, mantendo-se atributos considerados relavantes e semelhantes as demais bases.
 
 Após, as bases de dados foram submetidas a transformação na mesma ordem de grandeza por meio do método \textit{z-score}.
 
@@ -219,14 +219,14 @@ Para implementação e execução da análise foi utilizado a biblioteca \textit
   \end{center}
 \end{table}
 
-Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação da Acurária juntamente como Desvio Padrão. Foi adotado o MAE inverso e portanto interpreta-se os valores quanto maior melhor (Tabela \ref{tab_desempenho}).  
+Para o treinamento optou-se por usar a validação cruzada de \textit{3-folds} e a  \textbf{Média do Erro Absoluto (MAE)} como métrica de avaliação da Acurária juntamente como Desvio Padrão. Foi adotado o MAE inverso e portanto interpreta-se os valores quanto maior melhor (Tabela \ref{tab_desempenho}).
 
 Para cada algoritmo buscou-se a melhor configuração de parâmetros retornada pelo \textit{GridSearchCV} por meio dos seguintes passos:
 
 \begin{outline}[enumerate]
   \1 Para uma base e algoritmo, roda o \textit{GridSearchCV} com opções de variáveis escolhidas.
-\1 Caso, o ``melhor parâmetro'' para uma determinada variável pertença a fronteira.
-  \2 Ajusta as opções do parâmetro extendendo a fronteira. Ex: opções iniciais [2,4,8], suponha que o resultado, de melhor parâmetro, após a execução, seja [2], então ajusta-se os parâmetros para novas opções [0, 2, 4].
+  \1 Caso, o ``melhor parâmetro'' para uma determinada variável pertença a fronteira.
+  \2 Ajusta as opções do parâmetro estendendo a fronteira. Ex: opções iniciais [2,4,8], suponha que o resultado, de melhor parâmetro, após a execução, seja [2], então ajusta-se os parâmetros para novas opções [0, 2, 4].
   \1 Volta ao Passo 1, até que os melhores valores de parâmetros não pertençam a fronteira de opções.
 \end{outline}
 
@@ -243,40 +243,40 @@ Os melhores parâmetros encontrados seguindo os passos descritos na Seção \ref
     \begin{tabular}{r|c|l}
       \textbf{Algoritmos} & \textbf{Base de Dados} & \textbf{ Melhores Parâmetros}        \\
       \hline
-      DT                  & D1                     & \scriptsize{\verb=criterion: absolute_error,max_depth: 8, splitter: random=}  \\ \hline
-      KNN                 & D1                     & \scriptsize{\verb=algorithm: ball_tree, n_neighbors: 4, weights: distance=}  \\ \hline
-      MLP                 & D1                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 60, solver: lbfgs=}  \\ \hline
-      RF                  & D1                     & \scriptsize{\verb=max_depth: 6, n_estimators: 15=}  \\ \hline
-      SVM                 & D1                     & \scriptsize{\verb=C: 10, epsilon: 0.023, kernel: linear=}  \\ \hline
-      DT                  & D2                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 9, splitter: random=}  \\ \hline
-      KNN                 & D2                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 8, weights: distance=}  \\ \hline
-      MLP                 & D2                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 50, solver: lbfgs=}  \\ \hline
-      RF                  & D2                     & \scriptsize{\verb=max_depth: 10, n_estimators: 5=}  \\ \hline
-      SVM                 & D2                     & \scriptsize{\verb=C: 20, epsilon: 0.005, kernel: poly=} \\ \hline
-      DT                  & D3                     & \scriptsize{\verb=criterion: squared_error, max_depth: 11,splitter: random=} \\ \hline
-      KNN                 & D3                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 4, weights: distance=} \\ \hline
-      MLP                 & D3                     & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 50,  solver: sgd=} \\ \hline
-      RF                  & D3                     & \scriptsize{\verb=max_depth: 8, n_estimators: 4=} \\ \hline
-      SVM                 & D3                     & \scriptsize{\verb=C: 0.2, epsilon: 0.0005, kernel: sigmoid=} \\ \hline
-      DT                  & D4                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 10, splitter: random=} \\ \hline
-      KNN                 & D4                     & \scriptsize{\verb=algorithm: auto, n_neighbors: 23, weights: distance=} \\ \hline
-      MLP                 & D4                     & \scriptsize{\verb=activation: logistic, hidden_layer_sizes: 5,  solver: sgd=} \\ \hline
-      RF                  & D4                     & \scriptsize{\verb=max_depth: 11, n_estimators: 5=} \\ \hline
-      SVM                 & D4                     & \scriptsize{\verb=C: 6, epsilon: 0.0002, kernel: poly=} \\ \hline
-      DT                  & D5                     & \scriptsize{\verb=criterion: absolute_error, max_depth: 4, splitter: random=} \\ \hline
-      KNN                 & D5                     & \scriptsize{\verb=algorithm: kd_tree, n_neighbors: 7, weights: distance=} \\ \hline
-      MLP                 & D5                     & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 18, solver: adam=} \\ \hline
-      RF                  & D5                     & \scriptsize{\verb=max_depth: 7, n_estimators: 7=} \\ \hline
-      SVM                 & D5                     & \scriptsize{\verb=C: 4, epsilon: 0.13999, kernel: linear=} \\ \hline
+      DT                  & Cocomo81               & \scriptsize{\verb=criterion: absolute_error,max_depth: 8, splitter: random=}  \\ \hline
+      KNN                 & Cocomo81               & \scriptsize{\verb=algorithm: ball_tree, n_neighbors: 4, weights: distance=}  \\ \hline
+      MLP                 & Cocomo81               & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 60, solver: lbfgs=}  \\ \hline
+      RF                  & Cocomo81               & \scriptsize{\verb=max_depth: 6, n_estimators: 15=}  \\ \hline
+      SVM                 & Cocomo81               & \scriptsize{\verb=C: 10, epsilon: 0.023, kernel: linear=}  \\ \hline
+      DT                  & Cocomonasa             & \scriptsize{\verb=criterion: absolute_error, max_depth: 9, splitter: random=}  \\ \hline
+      KNN                 & Cocomonasa             & \scriptsize{\verb=algorithm: auto, n_neighbors: 8, weights: distance=}  \\ \hline
+      MLP                 & Cocomonasa             & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 50, solver: lbfgs=}  \\ \hline
+      RF                  & Cocomonasa             & \scriptsize{\verb=max_depth: 10, n_estimators: 5=}  \\ \hline
+      SVM                 & Cocomonasa             & \scriptsize{\verb=C: 20, epsilon: 0.005, kernel: poly=} \\ \hline
+      DT                  & Desharnais             & \scriptsize{\verb=criterion: squared_error, max_depth: 11,splitter: random=} \\ \hline
+      KNN                 & Desharnais             & \scriptsize{\verb=algorithm: auto, n_neighbors: 4, weights: distance=} \\ \hline
+      MLP                 & Desharnais             & \scriptsize{\verb=activation: relu, hidden_layer_sizes: 50,  solver: sgd=} \\ \hline
+      RF                  & Desharnais             & \scriptsize{\verb=max_depth: 8, n_estimators: 4=} \\ \hline
+      SVM                 & Desharnais             & \scriptsize{\verb=C: 0.2, epsilon: 0.0005, kernel: sigmoid=} \\ \hline
+      DT                  & Nasanumeric            & \scriptsize{\verb=criterion: absolute_error, max_depth: 10, splitter: random=} \\ \hline
+      KNN                 & Nasanumeric            & \scriptsize{\verb=algorithm: auto, n_neighbors: 23, weights: distance=} \\ \hline
+      MLP                 & Nasanumeric            & \scriptsize{\verb=activation: logistic, hidden_layer_sizes: 5,  solver: sgd=} \\ \hline
+      RF                  & Nasanumeric            & \scriptsize{\verb=max_depth: 11, n_estimators: 5=} \\ \hline
+      SVM                 & Nasanumeric            & \scriptsize{\verb=C: 6, epsilon: 0.0002, kernel: poly=} \\ \hline
+      DT                  & Seera                  & \scriptsize{\verb=criterion: absolute_error, max_depth: 4, splitter: random=} \\ \hline
+      KNN                 & Seera                  & \scriptsize{\verb=algorithm: kd_tree, n_neighbors: 7, weights: distance=} \\ \hline
+      MLP                 & Seera                  & \scriptsize{\verb=activation: tanh, hidden_layer_sizes: 18, solver: adam=} \\ \hline
+      RF                  & Seera                  & \scriptsize{\verb=max_depth: 7, n_estimators: 7=} \\ \hline
+      SVM                 & Seera                  & \scriptsize{\verb=C: 4, epsilon: 0.13999, kernel: linear=} \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
 
 Para os melhores parâmetros, os algoritmos alcançaram os desempenhos/acurácia relacionados na Tabela \ref{tab_desempenho}.
 
-Analisando as informações relacionadas na Tabela \ref{tab_desempenho}, o algoritmo com maior Acurácia Média em relação as bases de dados foi o DT(0,691) seguido do RF (0,679) e SVM (0,669) respectivamente. Sendo que o DT teve maior desempenho na base D2 com 0,798 de Acurária e o pior na D3 com 0,513. A maior acurária em relação a um Algoritmo x Base foi o RF x D2 com 0,808. E, o pior desempenho DT x D3 com 0,513.  
+Analisando as informações relacionadas na Tabela \ref{tab_desempenho}, o algoritmo com maior Acurácia Média em relação as bases de dados foi o DT(0,691) seguido do RF (0,679) e SVM (0,669) respectivamente. Sendo que o DT teve maior desempenho na base Cocomonasa com 0,798 de Acurária e o pior na Desharnais com 0,513. A maior acurária em relação a um Algoritmo x Base foi o RF x Cocomonasa com 0,808. E, o pior desempenho DT x Desharnais com 0,513.
 
-A Base de Dados a qual os algoritmos tiveram melhor desempenho foi a D2 com 0,751 de Acurácia Média seguida pela D1(0,699) e  D4(0,680) respectivamente. 
+A Base de Dados a qual os algoritmos tiveram melhor desempenho foi a Cocomonasa com 0,751 de Acurácia Média seguida pela Cocomo81(0,699) e  Nasanumeric(0,680) respectivamente.
 
 Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo que obteve melhor desempenho foi o DT seguido do RF e do SVM.
 
@@ -285,13 +285,13 @@ Deste modo, por meio dos dados apresentados, pode-se concluir que o Algoritmo qu
     \caption{Algoritmos e Desempenho em Erro Absoluto Médio (MAE) e Desvio Padrão. Inverso do Erro Absoluto Médio, lê-se quanto maior melhor. }
     \label{tab_desempenho}
     \begin{tabular}{r|c|c|c|c|c|c}
-      \textbf{Algoritmos} & \textbf{D1}                                    & \textbf{D2}                                    & \textbf{D3}                                    & \textbf{D4}                                     & \textbf{D5}    & \textbf{Média }                               \\
-      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \) & \textbf{0,691} \\ \hline
-      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & \textbf{0,592} \\ \hline
-      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \) & \textbf{0,636} \\ \hline
-      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \) & \textbf{0,679} \\ \hline
-      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \) & \textbf{0,669}  \\ \hline
-      Média               & \textbf{0.699}  & \textbf{0.751}  & \textbf{0.510}  & \textbf{0.680}  & \textbf{0.628}  & \\ \hline
+      \textbf{Algoritmos} & \textbf{Cocomo81}                              & \textbf{Cocomonasa}                            & \textbf{Desharnais}                            & \textbf{Nasanumeric}                            & \textbf{Seera}                                  & \textbf{Média } \\
+      DT                  & \( \underset{_{-}^{+}\textrm{0.101}}{0.753} \) & \( \underset{_{-}^{+}\textrm{0.013}}{0.798} \) & \( \underset{_{-}^{+}\textrm{0.106}}{0.513} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.716} \)  & \( \underset{_{-}^{+}\textrm{0.037}}{0.679} \)  & \textbf{0,691}  \\ \hline
+      KNN                 & \( \underset{_{-}^{+}\textrm{0.194}}{0.682} \) & \( \underset{_{-}^{+}\textrm{0.133}}{0.607} \) & \( \underset{_{-}^{+}\textrm{0.070}}{0.452} \) & \( \underset{_{-}^{+}\textrm{0.064}}{0.672} \)  & \( \underset{_{-}^{+}\textrm{0.094}}{0.550 } \) & \textbf{0,592}  \\ \hline
+      MLP                 & \( \underset{_{-}^{+}\textrm{0.138}}{0.656} \) & \( \underset{_{-}^{+}\textrm{0.055}}{0.783} \) & \( \underset{_{-}^{+}\textrm{0.032}}{0.551} \) & \( \underset{_{-}^{+}\textrm{0.054}}{0.600} \)  & \( \underset{_{-}^{+}\textrm{0.018}}{0.591} \)  & \textbf{0,636}  \\ \hline
+      RF                  & \( \underset{_{-}^{+}\textrm{0.142}}{0.709} \) & \( \underset{_{-}^{+}\textrm{0.047}}{0.808} \) & \( \underset{_{-}^{+}\textrm{0.029}}{0.477} \) & \( \underset{_{-}^{+}\textrm{0.041}}{0.748} \)  & \( \underset{_{-}^{+}\textrm{0.012}}{0.655} \)  & \textbf{0,679}  \\ \hline
+      SVM                 & \( \underset{_{-}^{+}\textrm{0.140}}{0.696} \) & \( \underset{_{-}^{+}\textrm{0.026}}{0.759} \) & \( \underset{_{-}^{+}\textrm{0.142}}{0.558} \) & \( \underset{_{-}^{+}\textrm{0.062}}{0.666 } \) & \( \underset{_{-}^{+}\textrm{0.034}}{0.666} \)  & \textbf{0,669}  \\ \hline
+      Média               & \textbf{0.699}                                 & \textbf{0.751}                                 & \textbf{0.510}                                 & \textbf{0.680}                                  & \textbf{0.628}                                  &                 \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -302,7 +302,7 @@ Durante a elaboração da pesquisa, constatou-se que existem vários trabalhos n
 
 No entanto, apesar da existência dos trabalhos relatados, a escassez de base dados foi notória durante a realização da pesquisa. Muitas com poucos dados e dados de projetos antigos.
 
-Cinco base de dados disponíveis em domínio público foram escolhidas (Tabela \ref{tab_bases}): Cocomonasa (D2), Desharnais (D3), Nasanumeric (D4) e Seera (D5) \cite{promise:2005, nasanumeric:2014, seera:2020}. Os algoritmos utilizados para treinamento foram (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
+Cinco base de dados disponíveis em domínio público foram escolhidas (Tabela \ref{tab_bases}): Cocomo81, Cocomonasa, Desharnais, Nasanumeric e Seera \cite{promise:2005, nasanumeric:2014, seera:2020}. Os algoritmos utilizados para treinamento foram (Tabela \ref{tab_algoritmos}): Árvore de Decisão (DT), Redes Neurais Artificiais (Perceptron Multi-camadas - MLP), K-Vizinhos Mais Próximos (KNN), Máquinas de Vetor de Suporte (SVM) e Floresta Aleatório (RF).
 
 Deste modo, concluisse, após os ajustes da base de dados e treinamento dos algoritmos, que os algoritmos com os melhores desempenhos por ordem de classificação foram: DT, RF e SVM. Além disso, este estudo pode servir de apoio para pesquisas na área de Estimativa de Software com apoio da Aprendizagem de Máquina para auxiliar na fundamentação das relações produzidas na pesquisa.
 
